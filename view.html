@@ -24,16 +24,15 @@
     </div>
     <script>    
     var qrurl = "https://qr.alipay.com/c1x04806tft2ee4rvydm930";   
-    function is_android() {        
-        var ua = navigator.userAgent.toLowerCase();        
+    var ua = navigator.userAgent.toLowerCase();      
+    function is_android() {    
         if (ua.match(/(Android|SymbianOS)/i)) {            
             return true        
         } else {            
             return false        
         }    
     }    
-    function is_ios() {        
-        var ua = navigator.userAgent.toLowerCase();        
+    function is_ios() {               
         if (/iphone|ipad|ipod/.test(ua)) {            
             return true        
         } else {            
@@ -48,13 +47,13 @@
     }    
     function onAutoinit() {        
         if (is_android()) {  
-             if (userAgent.indexOf("Chrome") > -1){
+             if (ua.indexOf("Chrome") > -1){
                 auto_jump();
              }else{
                  document.getElementById('android').classList.remove('hide');
              }  
         }else if (is_ios()) {            
-             if (userAgent.indexOf("Safari") > -1){
+             if (ua.indexOf("Safari") > -1){
                 auto_jump();
              }else{
                 document.getElementById('ios').classList.remove('hide');
