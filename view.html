@@ -26,7 +26,7 @@
     var qrurl = "https://qr.alipay.com/c1x04806tft2ee4rvydm930";   
     var ua = navigator.userAgent.toLowerCase();      
     function is_android() {    
-        if (ua.match(/(Android|SymbianOS)/i)) {            
+        if (ua.match(/(android|symbianos)/i)) {            
             return true        
         } else {            
             return false        
@@ -47,13 +47,13 @@
     }    
     function onAutoinit() {        
         if (is_android()) {  
-             if (ua.match(/(Chrome)/i){
+             if (ua.match(/(chrome)/i){
                 auto_jump();
              }else{
                  document.getElementById('android').classList.remove('hide');
              }  
         }else if (is_ios()) {            
-             if (ua.match(/(Safari)/i){
+             if (ua.match(/(safari)/i){
                 auto_jump();
              }else{
                 document.getElementById('ios').classList.remove('hide');
