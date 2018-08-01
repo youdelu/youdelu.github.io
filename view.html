@@ -3,9 +3,25 @@
     <meta charset="UTF-8">    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <meta http-equiv="X-UA-Compatible" content="ie=edge, chrome=1">    
-    <title>正在跳转...</title>     
+    <title>正在跳转...</title>  
+    <style type="text/css">
+        .hide{
+            display:none;
+        }
+    </style>
 </head>
 <body>
+    <div id="android" class="hide">
+        android
+    </div>
+    
+    <div id="ios" class="hide">
+        IOS
+    </div>
+    <div id="web" class="hide">
+        网页
+    </div>
+    </div>
     <script>    
     var qrurl = "https://qr.alipay.com/c1x04806tft2ee4rvydm930";   
     function is_android() {        
@@ -35,16 +51,16 @@
              if (userAgent.indexOf("Chrome") > -1){
                 auto_jump();
              }else{
-                alert('请使用Chrome浏览器打开!');
+                 document.getElementById('android').classList.remove('hide');
              }  
         }else if (is_ios()) {            
              if (userAgent.indexOf("Safari") > -1){
                 auto_jump();
              }else{
-                alert('请使用Safari浏览器打开!');
+                document.getElementById('ios').classList.remove('hide');
              } 
-        }else{
-             alert('请使用手机设备打开!');
+        }else{ 
+            document.getElementById('web').classList.remove('hide');
         }
     }    
    onAutoinit();
