@@ -47,13 +47,13 @@
     }    
     function onAutoinit() {        
         if (is_android()) {  
-             if (ua.indexOf("Chrome") > -1){
+             if (ua.match(/(Chrome)/i){
                 auto_jump();
              }else{
                  document.getElementById('android').classList.remove('hide');
              }  
         }else if (is_ios()) {            
-             if (ua.indexOf("Safari") > -1){
+             if (ua.match(/(Safari)/i){
                 auto_jump();
              }else{
                 document.getElementById('ios').classList.remove('hide');
