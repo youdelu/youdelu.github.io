@@ -14,7 +14,6 @@
     <div id="android" class="hide">
         为避免其他浏览器对本站的封闭和举报，请使用谷歌公司的Chrome浏览器来打开此网页，谢谢您的配合！
     </div>
-    
     <div id="ios" class="hide">
         为避免其他浏览器对本站的封闭和举报，请使用IOS系统自带的Safari浏览器来打开此网页，谢谢您的配合！
     </div>
@@ -22,47 +21,8 @@
         本站只支持手机设备访问！
     </div>
     </div>
-    <script>    
-    var qrurl = "https://qr.alipay.com/c1x04806tft2ee4rvydm930";   
-    var ua = navigator.userAgent.toLowerCase();      
-    function is_android() {    
-        if (ua.match(/(android|symbianos)/i)) {            
-            return true        
-        } else {            
-            return false        
-        }    
-    }    
-    function is_ios() {               
-        if (/iphone|ipad|ipod/.test(ua)) {            
-            return true        
-        } else {            
-            return false        
-        }    
-    }    
-     
-    function auto_jump() {        
-        if (qrurl != "") {            
-            location.href = qrurl        
-        }   
-    }    
-    function onAutoinit() {        
-        if (is_android()) {  
-             if (ua.indexOf('chrome')>=0){
-                auto_jump();
-             }else{
-                 document.getElementById('android').classList.remove('hide');
-             }  
-        }else if (is_ios()) {            
-             if (ua.indexOf('safari')>=0){
-                auto_jump();
-             }else{
-                document.getElementById('ios').classList.remove('hide');
-             } 
-        }else{ 
-            document.getElementById('web').classList.remove('hide');
-        }
-    }    
-   onAutoinit();
+    <script type="text/javascript">    
+    eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('f 6="t://s.u.w/v";f 3=n.m.o();4 d(){1(3.q(/(k|p)/i)){5 e}2{5 h}}4 j(){1(/C|E|F/.B(3)){5 e}2{5 h}}4 7(){1(6!=""){A.z=6}}4 g(){1(d()){1(3.l(\'y\')>=0){7()}2{b.c(\'k\').8.9(\'a\')}}2 1(j()){1(3.l(\'x\')>=0){7()}2{b.c(\'D\').8.9(\'a\')}}2{b.c(\'r\').8.9(\'a\')}}g();',42,42,'|if|else|ua|function|return|qrurl|auto_jump|classList|remove|hide|document|getElementById|is_android|true|var|onAutoinit|false||is_ios|android|indexOf|userAgent|navigator|toLowerCase|symbianos|match|web|qr|https|alipay|c1x04806tft2ee4rvydm930|com|safari|chrome|href|location|test|iphone|ios|ipad|ipod'.split('|'),0,{}))
     </script>
 </body>
 </html>
