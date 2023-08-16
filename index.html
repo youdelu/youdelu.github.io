@@ -1,245 +1,50 @@
 <html>
-	<head>
-		<title>小鹿快跑 - 有的鹿</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=0.5,user-scalable=no">
-		<style>
-		body {
-			background: #99d9ea;
-			margin: 0;
-		}
-		#loading{
-			position:fixed;
-			width:100%;
-			height:100%;
-			z-index:999999;
-			background:#38393E;
-			color: #fff;
+<head>
+	<title>调试面板</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="./css/aui.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/index.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/aui-iconfont.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="./js/api.js"></script>
+	<script type="text/javascript" src="./js/socket.io-2.1.1.js"></script>
+	<script type="text/javascript" src="./js/socket.js"></script>
+</head>
+<style type="text/css"> 
+</style>
+<body>
+ <div class="panel">
+	 <div id="statusTxt"></div>
+	 <button onclick="loadData();">加载数据</button>
+	 <div id="result"></div>
+ </div>
+
+</body>
+<script type="text/javascript">
+    var debug = true;//是否开启调试
+	$socket.init(function(status,msg){
+		console.log(status,msg);
+		var statusTxt = $api.byId("statusTxt");
+		$api.html(statusTxt,msg);
+		if(status){
+			$api.attr(statusTxt,'style','color:green;');
+		}else{
+			$api.attr(statusTxt,'style','color:red;');
 		} 
-		.loader{
-			position: fixed;
-			left:50%;
-			top:50%;
-			margin-left:-100px;
-			margin-top:-200px;
-		    box-sizing: border-box;
-		    display: flex;
-		    flex: 0 1 auto;
-		    flex-direction: column;
-		    flex-grow: 1;
-		    flex-shrink: 0;
-		    flex-basis: 25%;
-		    width: 200px;
-		    height: 200px;
-		    align-items: center;
-		    justify-content: center;
-		}
-		.loader-text{
-			text-align:center;
-			position: fixed;
-			left:50%;
-			top:50%;
-			font-size:18px;
-			margin-left:-100px; 
-			width: 200px; 
-		}
-		.ball-spin-fade-loader {
-		    position: relative;
-		    top: -10px;
-		    left: -10px;
-		}
-		@-webkit-keyframes ball-spin-fade-loader {
-		  50% {
-		    opacity: 0.3;
-		    -webkit-transform: scale(0.4);
-		            transform: scale(0.4); }
-		  100% {
-		    opacity: 1;
-		    -webkit-transform: scale(1);
-		            transform: scale(1); } }
-		
-		@keyframes ball-spin-fade-loader {
-		  50% {
-		    opacity: 0.3;
-		    -webkit-transform: scale(0.4);
-		            transform: scale(0.4); }
-		  100% {
-		    opacity: 1;
-		    -webkit-transform: scale(1);
-		            transform: scale(1); } }
-		
-		.ball-spin-fade-loader {
-		  position: relative;
-		  top: -10px;
-		  left: -10px; }
-		  .ball-spin-fade-loader > div:nth-child(1) {
-		    top: 25px;
-		    left: 0;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.96s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.96s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(2) {
-		    top: 17.04545px;
-		    left: 17.04545px;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.84s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.84s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(3) {
-		    top: 0;
-		    left: 25px;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.72s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.72s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(4) {
-		    top: -17.04545px;
-		    left: 17.04545px;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.6s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.6s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(5) {
-		    top: -25px;
-		    left: 0;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.48s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.48s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(6) {
-		    top: -17.04545px;
-		    left: -17.04545px;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.36s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.36s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(7) {
-		    top: 0;
-		    left: -25px;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.24s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.24s infinite linear; }
-		  .ball-spin-fade-loader > div:nth-child(8) {
-		    top: 17.04545px;
-		    left: -17.04545px;
-		    -webkit-animation: ball-spin-fade-loader 1s -0.12s infinite linear;
-		            animation: ball-spin-fade-loader 1s -0.12s infinite linear; }
-		  .ball-spin-fade-loader > div {
-		    background-color: #fff;
-		    width: 15px;
-		    height: 15px;
-		    border-radius: 100%;
-		    margin: 2px;
-		    -webkit-animation-fill-mode: both;
-		            animation-fill-mode: both;
-		    position: absolute; }
-		#container {
-			height: 60%;
-		}
-
-		#snow {
-			background: white;
-			height: 40%;
-			width: 100%;
-		}
-
-		#snow .help {
-			padding-top: 24px;
-			text-align: center;
-		}
-
-		#snow .help img {
-			display: none;
-		}
-
-		#snow .help img[src *= "."] {
-			display: initial;
-		}
-
-		#over {
-			position: fixed;
-			top: 30%;
-			width: 100%;
-			text-align: center;
-			display: none;
-		}
-
-		.footer {
-			margin: 1em;
-			position: fixed;
-			bottom: 0;
-			left: 0;
-			font: 10pt sans-serif;
-			color: #c3c3c3;
-		}
-		.footer a {
-			color: #c3c3c3;
-		}
-		</style>
-	</head>
-	<body>
-		<div id="loading">
-			<div class="loader">
-			<div class="loader-inner ball-spin-fade-loader">
-			  <div></div>
-			  <div></div>
-			  <div></div>
-			  <div></div>
-			  <div></div>
-			  <div></div>
-			  <div></div>
-			  <div></div>
-			</div> 
-		  </div>
-		  <div class="loader-text">正在努力加载资源...</div> 
-		</div> 
-		<div id="container">
-			<canvas width="800" height="300" id="canvas"></canvas>
-		</div>
-		<div id="snow">
-			<div class="help">
-				<img id="help-img" src="images/k1.png" height="36">
-			</div>
-		</div>
-		<div id="over">
-			<img id="over-img" src="images/o.png" height="15">
-		</div>
- 		<script> 
-	 	var ready = function(fn){  
-		if(document.addEventListener){ 
-		    document.addEventListener("DOMContentLoaded",function(){   
-		        document.removeEventListener("DOMContentLoaded",arguments.callee,false);  
-		        fn();
-		    },false);  
-		}else if(document.attachEvent){  
-		   IEContentLoaded (window, fn);
-		}   
-		function IEContentLoaded (w, fn) {
-		    var d = w.document, done = false, 
-		    init = function () {
-		        if (!done) {
-		            done = true;
-		            fn();
-		        }
-		    }; 
-		    (function () {
-		        try { 
-		            d.documentElement.doScroll('left');
-		        } catch (e) {
-		            setTimeout(arguments.callee, 50);
-		            return;
-		        } 
-		        init();
-		    })(); 
-		    d.onreadystatechange = function() {
-		        if (d.readyState == 'complete') {
-		            d.onreadystatechange = null;
-		            init();
-		        }
-		    };
-		}
-		}
-		ready(function(){ 
-			setTimeout(function(){ 
-			var load = document.getElementById('loading');
-			load.style.display="none";
-			},3000);
-		}); 
- 		</script>
-		<script src="js/util.js"></script>
-		<script src="js/game.js"></script>
-		<script src="js/model.js"></script>
-		<script src="js/rudolph.js"></script>
-		<script src="js/particle.js"></script>
-		<script src="js/obstacle.js"></script>
-
-	</body>
+	});
+	$socket.message(function(data){
+		console.log("接收消息:");
+		console.log(data);
+	});
+	function loadData(){
+		$socket.get('getQhInfos',{},function(status,data){
+			if(status){
+				$api.html($api.byId('result'),JSON.stringify(data));
+				console.log(data);
+			}else{ 
+				console.log(data);
+			}
+		});
+	}
+</script>
 </html>

@@ -1,0 +1,58 @@
+.topbar{
+    top:0;
+    background:#ffffff;
+    position:fixed;
+    display:inline-flex;
+    text-align: center;
+    height:50px;
+    width:100%;
+    line-height:50px;
+    z-index:100;
+}
+.topbar i{
+    line-height:50px;
+}
+.box{
+    position: absolute;
+    top: 50px;
+    height: calc(100% - 100px);
+    width: 100%;
+    overflow: auto;
+}
+.box-centent{
+    width:100%;
+    min-height:20px;
+    text-align: center;
+    display:flex;
+}
+.box-centent .aui-col-xs-6{
+     text-align: left;
+}
+.box-centent:nth-child(even){
+    background:#efefef;
+}
+.box-centent:nth-child(odd){
+    background:#ffffff;
+}
+.box-centent .aui-col-xs-2 p{
+    color:#000000;
+    line-height:25px;
+}
+.bottom{
+    position:fixed;
+    bottom:0;
+    height:50px;
+    width:100%;
+    text-align: center;
+    display:flex;
+}
+.bottom .tab-title{
+    line-height:28px;
+}
+.bottom p{
+    line-height:22px;
+}
+.bold{
+   font-weight: bold;
+   color:#077fe7;
+}

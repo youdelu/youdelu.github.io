@@ -1,0 +1,153 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="./css/aui.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/index.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/aui-iconfont.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="./js/api.js"></script>
+</head>
+<style type="text/css">
+#canvas{
+    position: absolute;
+    background:#000000;
+    left:0;
+    top:0;
+    border:1px solid #ffffff;
+}
+#box{
+    position: relative;
+}
+.point{
+    position: absolute;
+    width:4px;
+    height:4px;
+    background:#ffffff;
+    border-radius: 2px;
+}
+</style>
+<body onresize="changesize()">
+<canvas id="canvas" width="1000" height="500"></canvas>
+<div id="debug">
+<div id="box"></div>
+<textarea id="text"></textarea>
+<button onclick="show()">生成</button>
+    <button onclick="startMove()">移动</button>
+    <button onclick="stopMove()">停止</button> 
+	 <button onclick="getKline()">K线数据</button> 
+</div>
+</body>
+<script type="text/javascript">
+    var debug = true;//是否开启调试
+    var points = Array();
+    var div = document.getElementById('box');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    function init(){
+       div.addEventListener('click',function(event){
+            var x = event.clientX - div.offsetLeft;
+            var y = event.clientY - div.offsetTop;
+            points.push([x,y]);
+            print();
+        });
+        changesize();
+        if(!debug){
+            $api.addCls($api.byId('debug'),'hide');
+        }
+    }
+    init();
+    function changesize(){
+        $api.attr(canvas,'width',window.innerWidth);
+        $api.attr(canvas,'height',window.innerWidth*9/16);
+        $api.attr(div,'style','width:'+window.innerWidth+'px;height:'+(window.innerWidth*9/16)+'px');
+		drawLine();
+    }
+    function print(){
+        $api.val($api.byId('text'),JSON.stringify(points));
+        drawLine();
+    }
+    function clearRect(){
+        var w = canvas.width;
+        var h = canvas.height;
+        ctx.clearRect(0,0,w,h);
+    }
+	//画线
+    function drawLine(){
+        clearRect();
+        ctx.beginPath();
+        for(var i = 0 ;i<points.length;i++){
+            if(i<points.length-1){
+              ctx.moveTo(points[i][0],points[i][1]);
+              ctx.lineTo(points[i+1][0],points[i+1][1]);
+            }
+        }
+        ctx.closePath();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1 ;
+        ctx.stroke();
+    }
+	//画刻度
+	function drawScale(max,min){
+		
+	}
+
+    var timer;
+    var start = true;
+    function startMove(){
+        start = true;
+        move();
+    }
+	var data = Array();
+	var index = 0;
+	//移动
+    function move(){
+        timer&&clearTimeout(timer);
+        if(!start||points.length==0){
+            start = false;
+            return;
+        }
+		var showData = data.slice(index, index+30);
+		console.log(showData);
+		// points = Array();
+		// var height = canvas.height;
+		// var width = canvas.width;
+		// for(var i = 0 ; i< showData;i++){
+			
+		// }
+        for(var i = 0 ;i<points.length;i++){
+            points[i][0]-=0.5;
+            if(points[i][0]<-100){
+                points.splice(i,1);//超出的移除
+				index++;
+            }
+        }
+        drawLine();
+        timer = setTimeout(move,1);
+    }
+    function stopMove(){
+      timer&&clearTimeout(timer);
+      start = false;
+    }
+
+    function show(){
+          var str = $api.val($api.byId('text'));
+          if(str){
+              $api.html(div,'');
+              points = JSON.parse(str);
+              drawLine();
+          }
+    }
+	function getKline(){
+		$api.ajax("https://stock2.finance.sina.com.cn/futures/api/jsonp.php/kline/InnerFuturesNewService.getFewMinLine?symbol=RB2310&type=5","get",{},"text",function(res,err){
+			
+			if(res&&res.length>100){
+				res = res.substring(res.indexOf("kline(")+6);
+				res = res.substring(0,res.length-2);
+				res = JSON.parse(res);
+				console.log(res);
+				
+			}
+		});
+	}
+</script>
+</html>
