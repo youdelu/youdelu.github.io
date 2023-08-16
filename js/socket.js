@@ -11,7 +11,7 @@
 	 */
 	u.init = function(fn){
 		try{
-			socket = io("wss://"+socketUrl);
+			socket = io("ws://"+socketUrl);
 			socket.on('connect', function() {
 				conncet = true;
 				fn&&fn(true,"连接成功"); 
